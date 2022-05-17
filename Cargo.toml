@@ -1,0 +1,17 @@
+cargo-features = ["test-dummy-unstable"]
+
+[package]
+name = "rusty_listener"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+chrono = "0.4.19"
+log = "0.4.16"
+cli-log = "2.0.0"
+clap = "3.1.14"
+#serde = "1.0.137"
+
+[optional]

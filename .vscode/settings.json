@@ -1,0 +1,4 @@
+{
+    "lldb.displayFormat": "binary",
+    "docwriter.style": "RustDoc"
+}

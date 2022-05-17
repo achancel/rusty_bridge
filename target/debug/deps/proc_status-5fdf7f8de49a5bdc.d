@@ -1,0 +1,11 @@
+/media/roomane/transfer/projects/software/diplomus/rusty_bridge/target/debug/deps/proc_status-5fdf7f8de49a5bdc.rmeta: /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-status-0.1.1/src/lib.rs /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-status-0.1.1/src/entry.rs /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-status-0.1.1/src/entries.rs /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-status-0.1.1/src/errors.rs /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-status-0.1.1/src/mem_usage.rs /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-status-0.1.1/src/proc_ref.rs /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-status-0.1.1/src/status.rs
+
+/media/roomane/transfer/projects/software/diplomus/rusty_bridge/target/debug/deps/proc_status-5fdf7f8de49a5bdc.d: /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-status-0.1.1/src/lib.rs /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-status-0.1.1/src/entry.rs /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-status-0.1.1/src/entries.rs /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-status-0.1.1/src/errors.rs /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-status-0.1.1/src/mem_usage.rs /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-status-0.1.1/src/proc_ref.rs /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-status-0.1.1/src/status.rs
+
+/home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-status-0.1.1/src/lib.rs:
+/home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-status-0.1.1/src/entry.rs:
+/home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-status-0.1.1/src/entries.rs:
+/home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-status-0.1.1/src/errors.rs:
+/home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-status-0.1.1/src/mem_usage.rs:
+/home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-status-0.1.1/src/proc_ref.rs:
+/home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-status-0.1.1/src/status.rs:

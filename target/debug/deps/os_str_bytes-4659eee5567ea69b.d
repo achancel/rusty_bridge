@@ -1,0 +1,11 @@
+/media/roomane/transfer/projects/software/diplomus/rusty_bridge/target/debug/deps/os_str_bytes-4659eee5567ea69b.rmeta: /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.0.1/src/lib.rs /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.0.1/src/common/mod.rs /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.0.1/src/util.rs /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.0.1/src/common/raw.rs /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.0.1/src/iter.rs /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.0.1/src/pattern.rs /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.0.1/src/raw_str.rs
+
+/media/roomane/transfer/projects/software/diplomus/rusty_bridge/target/debug/deps/os_str_bytes-4659eee5567ea69b.d: /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.0.1/src/lib.rs /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.0.1/src/common/mod.rs /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.0.1/src/util.rs /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.0.1/src/common/raw.rs /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.0.1/src/iter.rs /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.0.1/src/pattern.rs /home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.0.1/src/raw_str.rs
+
+/home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.0.1/src/lib.rs:
+/home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.0.1/src/common/mod.rs:
+/home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.0.1/src/util.rs:
+/home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.0.1/src/common/raw.rs:
+/home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.0.1/src/iter.rs:
+/home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.0.1/src/pattern.rs:
+/home/roomane/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.0.1/src/raw_str.rs:
