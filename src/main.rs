@@ -9,9 +9,9 @@ use std::io::Write;
 use std::net::{IpAddr, Ipv4Addr, SocketAddr, UdpSocket};
 use std::time::SystemTime;
 
-/* region checking OS
-This function only gets compiled if the target OS is linux
-*/
+//region checking OS
+//This function only gets compiled if the target OS is linux
+
 #[cfg(target_os = "linux")]
 fn current_os() {
     println!("Your current OS is linux. OK");
@@ -24,7 +24,14 @@ fn current_os() {
     info!("Your current OS is *not* linux! BAD");
     panic!("Make your sys linux");
 }
+//endregion
 
+/// It creates a UDP socket, binds it to the address and port specified in the config file, and then
+/// starts listening for incoming messages
+/// 
+/// Arguments:
+/// 
+/// * `all`: (UdpSocket, &str)
 fn start_listening(all: (UdpSocket, &str)) {
     let mut buf = vec![0; 10];
     let mut result: Vec<u8> = Vec::new();
@@ -177,6 +184,17 @@ fn remove_item_from_vec<'a>(args: &'a mut Vec<&str>, x1: &str) -> Vec<&'a str> {
     args.to_vec()
 }
 
+/// It takes a vector of strings, checks if it's empty, if it's not, it checks if it has one argument,
+/// if it has, it checks if it's a port, if it's not, it checks if it has two arguments, if it has, it
+/// checks if it's a port and a mode, if it's not, it checks if it has three arguments, if it has, it
+/// checks if it's a port, a mode and a file, if it's not, it checks if it has four arguments, if it
+/// has, it checks if it's a port, a mode and a file, if it's not, it checks if it has more than four
+/// arguments, if it has, it prints an error message and panics, if it doesn't, it prints an error
+/// message and panics.
+/// 
+/// Arguments:
+/// 
+/// * `argsuments_in_str`: Vec<&str> - a vector of arguments in the form of a string
 fn get_parametrs(mut argsuments_in_str: Vec<&str>) -> (UdpSocket, &str) {
     println!(
         "Got {:?} arguments: {:?}",
@@ -206,14 +224,12 @@ fn get_parametrs(mut argsuments_in_str: Vec<&str>) -> (UdpSocket, &str) {
         0 => {
             println!("Got no arguments, setting up default parametrs. Console mode, port 5054");
             info!("Got no arguments, setting up default parametrs. Console mode, port 5054");
-            //checking mode here
             (create_socket(5054).unwrap(), "c")
         }
         1 => {
             println!("Got no arguments, setting up default parametrs. Console mode, port 5054");
             error!("Not enought arguments! Can't work in that way! Setting up default parametrs");
             (create_socket(5054).unwrap(), "c")
-            //panic!("\n\n\n\n\narguments checking stage\n\n\n\n\n");
         }
         2 => {
             //
@@ -424,6 +440,11 @@ fn get_parametrs(mut argsuments_in_str: Vec<&str>) -> (UdpSocket, &str) {
     params.into()
 }
 
+/// The main function of the program.
+/// 
+/// Returns:
+/// 
+/// A tuple of UdpSocket and &str
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     current_os();
     init_cli_log!("rusty");
@@ -469,7 +490,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 //         info!("port: {}, mode: {}", self.port_value, self.mode_value);
 //     }
 // }
-//endregion
 
 // // let mut args = Arguments{
 // //     mode: 0,
@@ -480,3 +500,5 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 // let argues = argsuments_in_str.clone();
 // args.parse_arguments_from_vec(argues);
 // args.display();
+
+//endregion
