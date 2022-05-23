@@ -35,7 +35,10 @@
         {
             "label": "clean",
             "type": "shell",
-            "command": "cargo clean"
+            "command": "cargo clean",
+            "problemMatcher": [
+                "$rustc"
+            ]
         },
         {
             "label": "run",

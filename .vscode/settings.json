@@ -1,4 +1,4 @@
 {
     "lldb.displayFormat": "binary",
-    "docwriter.style": "RustDoc"
+    "docwriter.style": "Auto-detect"
 }
