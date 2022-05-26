@@ -1,13 +1,12 @@
-pub mod listener {
+pub mod net_io {
                                 //
-    use log::{info};     //import logging macros
+    use log::{info};            //import logging macros
     use chrono::{Timelike, Utc};//
 
     use std::fs::File;
     use std::io::ErrorKind;
     use std::io::Write;
     use std::net::{IpAddr, Ipv4Addr, SocketAddr, UdpSocket};
-    use std::time::{SystemTime, Duration};
 
     /// It creates a UDP socket, binds it to the address and port specified in the config file, and then
     /// starts listening for incoming messages
@@ -22,18 +21,17 @@ pub mod listener {
 
         let mut buf = vec![0; 10];
         let mut result: Vec<u8> = Vec::new();
-        let _now = SystemTime::now();
-        //let port: u32 = params.0.parse::<u32>().unwrap();
         let mode: &str = params.1.as_str();        
-        //let socket: UdpSocket = create_socket(port).unwrap();
 
         match mode {
             "f" | "file" => {
+
                 println!("Listening...");
                 info!("Listening...");
 
-                    let _now = Utc::now();
-                    std::thread::sleep(Duration::from_secs(5));
+                println!("***Write messages to send***");        
+
+                    let now = Utc::now();
 
                     match socket.recv_from(&mut buf) {
                         Ok((number_of_bytes, src_addr)) => {
@@ -63,41 +61,40 @@ pub mod listener {
                     write!(
                         file,
                         "Received message - time : {:02}:{:02}:{:02}\n{:?}\n",
-                        _now.hour(),
-                        _now.minute(),
-                        _now.second(),
+                        now.hour(),
+                        now.minute(),
+                        now.second(),
                         result_str
-                    )
-                    .expect("\nSomething wrong with writing message!\n");
+                    ).expect("\nSomething wrong with writing message!\n");
             }
             "c" | "console" => {
+                
                 println!("Listening...");
                 info!("Listening...");
 
-                    let _now = Utc::now();
-                    
-                    println!("\n\n");
-                    std::thread::sleep(Duration::from_millis(5));
-                    println!("\n\n");
+                println!("***Write messages to send***");        
 
-                    match socket.recv_from(&mut buf) {
-                        Ok((number_of_bytes, src_addr)) => {
-                            println!("received bytes: {:?} from {:?}", buf, src_addr);
-                            result = Vec::from(&buf[0..number_of_bytes]);
-                            while result.last() == Some(&10) || result.last() == Some(&0) {
-                                result.pop();
-                            }
+                let now = Utc::now();
+
+                match socket.recv_from(&mut buf) {
+                    Ok((number_of_bytes, src_addr)) => {
+                        println!("received bytes: {:?} from {:?}", buf, src_addr);
+                        result = Vec::from(&buf[0..number_of_bytes]);
+                        while result.last() == Some(&10) || result.last() == Some(&0) {
+                            result.pop();
                         }
-                        Err(fail) => println!("failed listening {:?}", fail),
                     }
-                    let display_result = result.clone();
-                    let result_str = String::from_utf8(display_result).unwrap();
-                    println!(
-                        "received message - time : {:02}:{:02}:{:02}\n{:?}",
-                        _now.hour(),
-                        _now.minute(),
-                        _now.second(),
-                        result_str
+                    Err(fail) => println!("failed listening {:?}", fail),
+                }
+                let display_result = result.clone();
+                let result_str = String::from_utf8(display_result).unwrap();
+
+                println!(
+                    "Received message - time : {:02}:{:02}:{:02}\n{:?}",
+                    now.hour(),
+                    now.minute(),
+                    now.second(),
+                    result_str
                 );
             }
             _ => {
@@ -105,6 +102,28 @@ pub mod listener {
                 info!("Something wrong at trying to start listen...");
             }
         };
+    }
+
+    
+    /// The function takes a socket, a receiver, and a message, and sends the message to the receiver
+    /// 
+    /// Arguments:
+    /// 
+    /// * `socket`: The socket we're sending the message on
+    /// * `receiver`: The IP address of the receiver.
+    /// * `msg`: The message to be sent.
+    pub fn forward(socket: UdpSocket, receiver: String){
+
+        let now = chrono::Local::now();
+
+        let mut message = String::new();
+        std::io::stdin().read_line(&mut message).unwrap();
+        let msg_bytes = message.into_bytes();
+
+        println!("Sending data - time : {:}:{:02}:{:02} -----------------------^\n", now.hour(), now.minute(), now.second());//  .hour(), now.minute(), now.second());
+ 
+        socket.send_to(&msg_bytes, receiver).expect("failed to send message");
+
     }
 
     /// It creates a socket and binds it to the specified port.
@@ -131,20 +150,6 @@ pub mod listener {
                 Err(error) => panic!("[------------------------------------]\nERROR!: {}\n[------------------------------------]", error)
             }
         }
-    }
-    
-    /// The function takes a socket, a receiver, and a message, and sends the message to the receiver
-    /// 
-    /// Arguments:
-    /// 
-    /// * `socket`: The socket we're sending the message on
-    /// * `receiver`: The IP address of the receiver.
-    /// * `msg`: The message to be sent.
-    fn send(socket: UdpSocket, receiver: String, msg: &Vec<u8>){
-
-        println!("sending data");
-        let result = socket.send_to(msg, receiver).expect("failed to send message");
-
     }
       
     //   fn main() {

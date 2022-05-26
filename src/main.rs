@@ -1,3 +1,4 @@
+///*
 //region checking OS
 //This function only gets compiled if the target OS is linux
 #[cfg(target_os = "linux")]
@@ -8,20 +9,20 @@ fn current_os() {
 // And this function only gets compiled if the target OS is *not* linux
 #[cfg(not(target_os = "linux"))]
 fn current_os() {
-    println!("Your current OS is *not* linux! BAD");
-    info!("Your current OS is *not* linux! BAD");
-    panic!("Make your sys linux");
+    println!("Your current OS is *not* linux! Bad but can work");
+    info!("Your current OS is *not* linux! Bad but can work");
 }
-//endregion
+//endregion 
+//*/
 
 use cli_log::*; // import logging macros
 use log::info;
-//
+
 use std::env;
 use std::thread;
 
 mod net;
-use net::listener::*;
+use net::net_io::*;
 
 mod parser;
 use parser::parser::*;
@@ -43,6 +44,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let all: (String, String) = get_parametrs(arguments_in_string); //GET PORT AND MODE
     let socket: std::net::UdpSocket = create_socket(all.0.parse::<u32>().unwrap()).unwrap();
+    let sock = socket.try_clone().unwrap();
+    let receiver: String = "127.0.0.1:5055".to_string();
 
     println!("Initiating variables done!");
     info!("Initiating variables done!");
@@ -51,27 +54,22 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     info!("Trying to start listen...");
 
     let params: (String, String) = all.clone();
-
-    let listener = thread::spawn(move || loop {
-        listen(socket.try_clone().unwrap(), params.to_owned())
+    
+    thread::spawn(move || loop {
+        listen(sock.try_clone().unwrap(), params.to_owned())
     });
 
-    // let mut input_string = String::new();
-    // while input_string != "x" {                             // This is the part that doesn't work right
-    //     input_string.clear();                               // First clear the String. Otherwise it will keep adding to it
-    //     io::stdin().read_line(&mut input_string).unwrap();  // Get the stdin from the user, and put it in read_string
-    //     println!("You wrote {}", input_string);
-    //     }
+    // Get the stdin from the user, and put it in read_string
+    let sender = thread::spawn(move || loop { net::net_io::forward(socket.try_clone().unwrap(), receiver.clone()) });
 
-    // let sender = thread::spawn(move || loop {
-    //     send(lla.to_owned())
-    // });
-
-    listener.join().unwrap();
-
-    print!("\n2");
+    sender.join().unwrap();
 
     info!("Listening done...");
 
     Ok(())
 }
+
+
+
+    // let mut input_string = String::new();
+
