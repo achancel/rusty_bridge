@@ -9,8 +9,7 @@ edition = "2021"
 chrono = "0.4.19"
 log = "0.4.16"
 cli-log = "2.0.0"
-clap = "3.1.14"
-
+clap = { version = "3.1.18", features = ["derive"] }
 #serde = "1.0.137"
 
 [optional]

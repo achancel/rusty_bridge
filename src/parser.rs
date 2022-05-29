@@ -1,8 +1,5 @@
 pub mod parser {
 
-    // import logging macros
-    use log::{error, info};     
-
     /// It removes a given string from a vector of strings
     ///
     /// Arguments:
@@ -35,17 +32,12 @@ pub mod parser {
         vec.to_vec()
     }
 
-    /// It takes a vector of strings, checks if it's empty, if it's not, it checks if it has one argument,
-    /// if it has, it checks if it's a port, if it's not, it checks if it has two arguments, if it has, it
-    /// checks if it's a port and a mode, if it's not, it checks if it has three arguments, if it has, it
-    /// checks if it's a port, a mode and a file, if it's not, it checks if it has four arguments, if it
-    /// has, it checks if it's a port, a mode and a file, if it's not, it checks if it has more than four
-    /// arguments, if it has, it prints an error message and panics, if it doesn't, it prints an error
-    /// message and panics.
+    /// It takes a vector of strings, checks if the arguments are correct, and returns a tuple of strings
     /// 
     /// Arguments:
     /// 
-    /// * `argsuments_in_string`: Vec<&str> - a vector of arguments in the form of a string
+    /// * `argsuments_in_string`: Vec<String> - a vector of strings that contains all the arguments passed
+    /// to the program.
     pub fn get_parametrs(argsuments_in_string: Vec<String>) -> (String, String) {
         println!(
             "Got {:?} arguments: {:?}",

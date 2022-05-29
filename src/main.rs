@@ -1,75 +1,82 @@
-///*
-//region checking OS
-//This function only gets compiled if the target OS is linux
-#[cfg(target_os = "linux")]
-fn current_os() {
-    println!("Your current OS is linux. OK");
-    info!("Your current OS is linux. OK");
-}
-// And this function only gets compiled if the target OS is *not* linux
-#[cfg(not(target_os = "linux"))]
-fn current_os() {
-    println!("Your current OS is *not* linux! Bad but can work");
-    info!("Your current OS is *not* linux! Bad but can work");
-}
-//endregion 
-//*/
+//OS configurating block
+    //This function only gets compiled if the target OS is linux
+    #[cfg(target_os = "linux")]
+    fn current_os() {
+        info!("Current OS = Linux");
+    }
+    // And this function only gets compiled if the target OS is *not* linux
+    #[cfg(not(target_os = "linux"))]
+    fn current_os() {
+        info!("Current OS != Linux");
+    }//
 
-use cli_log::*; // import logging macros
-use log::info;
+//crates and imports
+    use cli_log::*; // import logging macros
+    use log::info;
+    use clap::*;
 
-use std::env;
-use std::thread;
+    use std::thread;
 
-mod net;
-use net::net_io::*;
+    mod net;
+    use net::net_io::*;//
 
-mod parser;
-use parser::parser::*;
+//argument parser block
+    #[derive(Parser, Debug)]
+    #[clap(author, version, about)]
 
-/// The main function of the program.
-/// 
-/// Returns:
-/// 
-/// A tuple of UdpSocket and &str
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+    struct Args {
+        ///Mode argument
+        #[clap(short, long, default_value = "c")]
+        mode: String,
 
-    current_os();
-    init_cli_log!("rusty");
+        ///Port argument
+        #[clap(short, long, default_value_t = 5054)]
+        port: u32,
 
-    println!("Initiating variables...");
-    info!("Initiating variables...");
+        ///Reciever argument(JUST STRING. NO IP CHECK!!!)
+        #[clap(short, long)]
+        receiver: String,
+    }//
 
-    let arguments_in_string: Vec<String> = env::args().collect();
+//main function
+    fn main() -> Result<(), Box<dyn std::error::Error>> {
 
-    let all: (String, String) = get_parametrs(arguments_in_string); //GET PORT AND MODE
-    let socket: std::net::UdpSocket = create_socket(all.0.parse::<u32>().unwrap()).unwrap();
-    let sock = socket.try_clone().unwrap();
-    let receiver: String = "127.0.0.1:5055".to_string();
+        info!("Initiating...");
 
-    println!("Initiating variables done!");
-    info!("Initiating variables done!");
+            current_os();
+            info!("Checked OS! ✓");
 
-    println!("Trying to start listen...");
-    info!("Trying to start listen...");
+            init_cli_log!("rusty");
+            info!("Initiated logger! ✓");
 
-    let params: (String, String) = all.clone();
-    
-    thread::spawn(move || loop {
-        listen(sock.try_clone().unwrap(), params.to_owned())
-    });
+            let args = Args::parse();
+            info!("Arguments parsed! ✓");
 
-    // Get the stdin from the user, and put it in read_string
-    let sender = thread::spawn(move || loop { net::net_io::forward(socket.try_clone().unwrap(), receiver.clone()) });
+            let socket: std::net::UdpSocket = create_socket(args.port).unwrap();
+            let sock = socket.try_clone().unwrap();
+            info!("Sockets created! ✓");
 
-    sender.join().unwrap();
+        info!("Initiating variables done! ✓");
 
-    info!("Listening done...");
+        info!("Trying to start listen...");
 
-    Ok(())
-}
+            let listener = thread::spawn(move || loop {
+                listen(sock.try_clone().unwrap(), args.mode.as_str())
+            });
 
+        info!("Listener started at new thread! ✓\nThread info: {:?}✓", listener);
 
+        info!("Trying to start sender...");
 
-    // let mut input_string = String::new();
+            // Get the stdin from the user, and put it in read_string
+            let sender = thread::spawn(move || loop { net::net_io::forward(socket.try_clone().unwrap(), args.receiver.clone()) });
 
+            info!("Sender started at new thread! ✓\nThread info: {:?}✓", sender);
+
+            sender.join().unwrap();
+
+        info!("Sender joined to main thread! ✓");
+
+        info!("Program shutdown! ✓");
+        Ok(())
+    }//
